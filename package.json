@@ -1,5 +1,6 @@
 {
   "name": "travel-journal",
+  "description": "Travel Journal App",
   "version": "0.1.0",
   "private": true,
   "scripts": {
