@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import useSWR from "swr";
 import axios from "axios";
 import ActivityList from "./activities/ActivityList";
+import { ItineraryRequirements, generateItinerary } from "@/lib/generateItinerary";
 
 const labelClass = "block text-lg font-bold mb-1";
 const inputClass = "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline";
@@ -19,6 +20,9 @@ const TripPlaner = () => {
     const [country, setCountry] = useState('');
     const [tripLength, setTripLength] = useState('');
     const [activities, setActivities] = useState<SelectableActivity[]>(selectableActivities);
+
+    const [isLoadingTrip, setIsLoadingTrip] = useState(false);
+    const [trip, setTrip] = useState("");
 
     const handleCountryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setCountry(e.target.value);
@@ -40,10 +44,32 @@ const TripPlaner = () => {
         setActivities(updatedActivities);
     }
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        setIsLoadingTrip(true);
 
+        try {
+            const itinerary: ItineraryRequirements = {
+                destinations: [country],
+                duration: tripLength,
+                activities: activities.filter(a => a.isSelected).map(a => a.name),
+                budget: null,
+                months: [],
+                travellers: [],
+                dietaryRestrictions: [],
+                otherConsiderations: [],
+                inDepth: false
+            };
 
+            console.log("client itinerary", itinerary)
+
+            const result = await generateItinerary(itinerary);
+            setTrip(result);
+        } catch (error) {
+            console.error("Error generating itinerary", error);
+        } finally {
+            setIsLoadingTrip(false);
+        }
     }
 
     return (
@@ -87,6 +113,19 @@ const TripPlaner = () => {
                     <button type="submit" className="bg-accent self-center text-secondary font-semibold py-4 px-8 rounded">
                         Plan my trip
                     </button>
+                )}
+
+                {isLoadingTrip && (
+                    <div className="flex justify-center">
+                        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary"></div>
+                    </div>
+                )}
+
+                {trip && (
+                    <div className="mt-8">
+                        <h2 className="text-2xl font-bold mb-4">Your trip</h2>
+                        <p>{trip}</p>
+                    </div>
                 )}
             </form>
         </div>
