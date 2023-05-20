@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-primary: 3 57 28;
+    --color-secondary: 248 245 240;
+    --color-primary-button: 10 150 76;
+    --color-secondary-button: 204 219 211;
+    --color-accent: 225 146 51;
+  }
+}
+
+body {
+  color: rgb(var(--color-primary));
+  background: rgb(var(--color-secondary));
+}
+
+.color-effect {
+  background: linear-gradient(120deg, rgb(var(--color-primary-button)), rgb(var(--color-accent)));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
