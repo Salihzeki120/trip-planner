@@ -10,9 +10,7 @@ const configuration = new Configuration({
 
 const openai = new OpenAIApi(configuration);
 
-export const config = {
-    runtime: "edge",
-};
+export const runtime = 'edge';
 
 type GenerateItineraryRequest = Request & {
     body: Partial<ItineraryRequirements>;
