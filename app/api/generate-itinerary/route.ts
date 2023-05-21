@@ -21,7 +21,6 @@ const askGPT = async (prompt: string) => {
     });
 
     console.log(completion.data)
-    console.log(completion.data.choices[0].message?.content)
     return completion.data.choices[0].message?.content;
 }
 
