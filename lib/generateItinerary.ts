@@ -1,10 +1,10 @@
 export type ItineraryRequirements = {
-    destinations: string[];
+    destinations: string;
     duration: string;
     activities: string[];
-    budget: string | null;
+    budget: string;
     months: string[];
-    travellers: string[];
+    travellers: string;
     dietaryRestrictions: string[];
     otherConsiderations: string[];
     inDepth: boolean;
@@ -22,7 +22,7 @@ export const generateItinerary = async (itinerary: ItineraryRequirements): Promi
     const data = await response.json();
 
     if (response.status !== 200) {
-        throw data.error || new Error(`generateItinerary.ts: Request failed with status ${response.status}`);
+        throw data.result || new Error(`generateItinerary.ts: Request failed with status ${response.status}`);
     }
 
     return data.result;

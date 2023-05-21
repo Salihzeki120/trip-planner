@@ -7,10 +7,9 @@ const Hero = () => (
         </h1>
 
         <p className="text-2xl">
-            Let our AI-powered travel assistant help you plan your next trip and brig an immersive experience to your travel.
+            Let our AI-powered travel assistant help you create an itenerary for your next trip and bring an immersive experience to your travel.
         </p>
     </div>
 )
-
 
 export default Hero;

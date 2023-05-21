@@ -1,5 +1,6 @@
+import { MOCK_ITINERARY } from '@/config';
 import { ItineraryRequirements } from '@/lib/generateItinerary';
-import { formatArrayToText, guessDurationFormat } from '@/utils/helpers';
+import { formatArrayToText } from '@/utils/helpers';
 import { NextResponse } from 'next/server';
 import { Configuration, OpenAIApi } from "openai";
 
@@ -13,6 +14,17 @@ type GenerateItineraryRequest = Request & {
     body: Partial<ItineraryRequirements>;
 }
 
+const askGPT = async (prompt: string) => {
+    const completion = await openai.createChatCompletion({
+        model: "gpt-3.5-turbo",
+        messages: [{ role: 'user', content: prompt }],
+    });
+
+    console.log(completion.data)
+    console.log(completion.data.choices[0].message?.content)
+    return completion.data.choices[0].message?.content;
+}
+
 export async function POST(request: GenerateItineraryRequest) {
     if (!configuration.apiKey) {
         return NextResponse.json({ error: { message: "No API key found" } });
@@ -24,26 +36,23 @@ export async function POST(request: GenerateItineraryRequest) {
         return NextResponse.json({ error: { message: "No itinerary requirements found" } });
     }
 
-    if (itineraryRequirements.destinations?.length === 0) {
+    if (!itineraryRequirements.destinations) {
         return NextResponse.json({ error: { message: "No destinations found" } });
     }
 
-    try {
-        console.log("itineraryRequirements", itineraryRequirements)
-        const prompt = createTripItinerary(itineraryRequirements);
-        console.log("prompt: ", prompt)
-        const completion = await openai.createCompletion({
-            model: "text-davinci-003",
-            prompt,
-            temperature: 0.4,
-            max_tokens: 1024,
-            echo: true,
-        });
+    if (!itineraryRequirements.duration) {
+        return NextResponse.json({ error: { message: "No duration entered" } });
+    }
 
-        console.log("completion data", completion.data)
-        const choices = completion.data.choices;
-        const firstChoiceText = choices[0].text;
-        return NextResponse.json({ result: firstChoiceText });
+    try {
+        const prompt = createTripItinerary(itineraryRequirements);
+
+        if (process.env.NODE_ENV === 'development' && process.env.MOCK === 'true') {
+            return NextResponse.json({ result: MOCK_ITINERARY });
+        }
+
+        const response = await askGPT(prompt);
+        return NextResponse.json({ result: response });
     } catch (error: any) {
         if (error.response) {
             console.error("Error with response:", error.response.status, error.response.data);
@@ -61,32 +70,30 @@ export async function POST(request: GenerateItineraryRequest) {
 }
 
 const createTripItinerary = (requirements: ItineraryRequirements) => {
-    const destinations = formatArrayToText(requirements.destinations);
-    const duration = guessDurationFormat(requirements.duration);
+    const destinations = requirements.destinations;
+    const duration = requirements.duration;
     const activities = formatArrayToText(requirements.activities);
 
     const budget = requirements.budget;
     const months = formatArrayToText(requirements.months);
-    const travellers = formatArrayToText(requirements.travellers)
+    const travellers = requirements.travellers
     const dietaryRestrictions = formatArrayToText(requirements.dietaryRestrictions)
     const otherConsiderations = formatArrayToText(requirements.otherConsiderations)
     const inDepth = requirements.inDepth;
 
-    return `
-        As an expert travel planner for ${destinations}, I need you to provide me with a travel itinerary that fits accordingly with these requisites.
+    return `Act as a travel expert for ${destinations} and provide a travel itinerary that fits to these requisites.
         - Duration: ${duration}
         - Activities: ${activities}
-        ${budget && `- Budget: ${requirements.budget}`}
-        ${months && `- Months: ${months} – if relevant, provide with the best time to visit`}
-        ${travellers && `- Travellers: ${travellers}`}
-        ${dietaryRestrictions && `- Dietary restrictions: ${dietaryRestrictions}`}
-        ${otherConsiderations && `- Other considerations to take into account: ${otherConsiderations}`}
+        ${budget ? `- Budget: ${requirements.budget}` : null}
+        ${months ? `- Months: ${months} – if relevant, provide with the best time to visit` : null}
+        ${travellers ? `- Travellers: ${travellers}` : null}
+        ${dietaryRestrictions ? `- Dietary restrictions: ${dietaryRestrictions}` : null}
+        ${otherConsiderations ? `- Other considerations to take into account: ${otherConsiderations}` : null}
 
-        ${inDepth && `
-        Please provide me with a detailed itinerary for this trip, including:
+        ${inDepth ? `Please do provide an in-depth itinerary, including:
         - Accommodation
         - Restaurants
         - Other relevant information
-        `}
+        ` : null}
     `;
 }
