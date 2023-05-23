@@ -8,6 +8,10 @@ type GenerateItineraryRequest = Request & {
     body: Partial<ItineraryRequirements>;
 }
 
+if (!process.env.OPENAI_API_KEY) {
+    throw new Error("Missing OpenAPI Key");
+}
+
 export const runtime = 'edge';
 
 export async function POST(request: GenerateItineraryRequest) {
