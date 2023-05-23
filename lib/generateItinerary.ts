@@ -10,20 +10,30 @@ export type ItineraryRequirements = {
     inDepth: boolean;
 }
 
-export const generateItinerary = async (itinerary: ItineraryRequirements): Promise<string> => {
+export const generateItinerary = async (itinerary: ItineraryRequirements, onUpdateResult: (newResult: string) => void): Promise<void> => {
     const response = await fetch("/api/generate-itinerary", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify({ ...itinerary }),
+        body: JSON.stringify({
+            ...itinerary
+        }),
     });
 
-    const data = await response.json();
-
-    if (response.status !== 200) {
-        throw data.result || new Error(`generateItinerary.ts: Request failed with status ${response.status}`);
+    if (!response.ok) {
+        throw new Error(response.statusText);
     }
 
-    return data.result;
+    if (response.body === null) throw new Error('generateItinerary.ts: Response body is null');
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder();
+    let done = false;
+
+    while (!done) {
+        const { value, done: doneReading } = await reader.read();
+        done = doneReading;
+        const chunkValue = decoder.decode(value);
+        onUpdateResult(chunkValue);
+    }
 };

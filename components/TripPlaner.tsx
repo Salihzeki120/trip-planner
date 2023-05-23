@@ -1,5 +1,5 @@
 'use client';
-import { ACTIVITIES_DATA, Activity } from "@/config";
+import { ACTIVITIES_DATA, Activity } from "@/data";
 import { useEffect, useRef, useState } from "react";
 import ActivityList from "./activities/ActivityList";
 import { ItineraryRequirements, generateItinerary } from "@/lib/generateItinerary";
@@ -72,18 +72,21 @@ const TripPlaner = () => {
         setActivities(updatedActivities);
     }
 
+    const handleGenerationComplete = (result: string) => {
+        setIteneraryResult((prev) => prev + result);
+    }
+
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setIsGeneratingItenerary(true);
 
-        try {
-            const itineraryData: ItineraryRequirements = {
-                ...itineraryRequirements,
-                activities: activities.filter(a => a.isSelected).map(a => a.name),
-            };
+        const itineraryData: ItineraryRequirements = {
+            ...itineraryRequirements,
+            activities: activities.filter(a => a.isSelected).map(a => a.name),
+        };
 
-            const result = await generateItinerary(itineraryData);
-            setIteneraryResult(result);
+        try {
+            await generateItinerary(itineraryData, handleGenerationComplete);
         } catch (error) {
             console.error("Error generating itenerary from itineraryData:", error);
         } finally {
@@ -145,12 +148,12 @@ const TripPlaner = () => {
                         </button>
                     )}
 
-                    {isGeneratingItenerary && (
+                    {/* {isGeneratingItenerary && (
                         <div className="flex flex-col items-center justify-center my-8">
                             <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-primary" />
                             <p className="block text-lg font-bold mt-4">This may take 10 to 15 seconds...</p>
                         </div>
-                    )}
+                    )} */}
 
                     <div className="mt-8">
                         {iteneraryResult && (
