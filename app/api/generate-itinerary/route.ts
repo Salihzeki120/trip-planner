@@ -26,7 +26,7 @@ export async function POST(request: GenerateItineraryRequest) {
     }
 
     try {
-        if (process.env.NODE_ENV === 'development' && process.env.MOCK === 'true') {
+        if (process.env.MOCK === 'true') {
             return NextResponse.json({ result: MOCK_ITINERARY });
         }
 

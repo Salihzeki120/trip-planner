@@ -1,13 +1,12 @@
 'use client';
 import { useState } from "react";
 import Link from "next/link";
-
+import * as packageJSON from '../../package.json';
 
 const Navigation = () => {
     const [isOpen, setisOpen] = useState(false);
 
     const toggleMenu = () => {
-
         setisOpen(!isOpen);
     }
 
@@ -30,7 +29,7 @@ const Logo = ({ toggleMenu }: { toggleMenu: () => void }) => (
             🌍
         </span>
         <span className="text-2xl font-bold tracking-tighter">
-            TripPlanner
+            TripPlanner <span className="text-sm tracking-normal font-medium color-effect">v{packageJSON.version}</span>
         </span>
     </Link>
 )

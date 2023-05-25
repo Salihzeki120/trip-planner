@@ -1,6 +1,6 @@
 {
-  "name": "travel-planer",
-  "description": "Travel Planer App",
+  "name": "travel-planner",
+  "description": "TravelPlanner",
   "version": "0.1.0",
   "private": true,
   "scripts": {

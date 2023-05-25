@@ -102,7 +102,7 @@ const TripPlaner = () => {
             <form className="flex flex-col" onSubmit={handleSubmit}>
                 <fieldset className="flex flex-col">
                     <div className="mb-8">
-                        <InputField id="destinations" listId="destinations-list" label="Destinations" type="text" placeholder="i.e. Thailand, Vietnam, Laos" value={itineraryRequirements.destinations} onChange={handleDestinationChange} />
+                        <InputField id="destinations" listId="destinations-list" label="Enter a destination" type="text" placeholder="i.e. Thailand, Vietnam, Laos" value={itineraryRequirements.destinations} onChange={handleDestinationChange} />
                         <datalist id="destinations-list">
                             <option value="South East Asia" />
                             <option value="New York" />
@@ -113,7 +113,7 @@ const TripPlaner = () => {
 
                     {itineraryRequirements.destinations && (
                         <div className="mb-8">
-                            <InputField id="duration" listId="duration-list" label="How long?" type="text" placeholder="i.e. 3 weeks" value={itineraryRequirements.duration} onChange={handleDurationChange} />
+                            <InputField id="duration" listId="duration-list" label="How long are you staying?" type="text" placeholder="i.e. 3 weeks" value={itineraryRequirements.duration} onChange={handleDurationChange} />
                             <datalist id="duration-list">
                                 <option value="1-2 weeks" />
                                 <option value="2 months" />
@@ -124,7 +124,7 @@ const TripPlaner = () => {
 
                     {itineraryRequirements.destinations && itineraryRequirements.duration && (
                         <div className="mb-8">
-                            <p className="block text-lg font-bold mb-4">Pick your flavors</p>
+                            <p className="block text-lg font-bold mb-4">What flavors are you looking for?</p>
                             <ActivityList activities={activities} handleActivityClick={handleActivityClick} />
                         </div>
                     )}

@@ -11,8 +11,7 @@ const IteneraryResult = ({ result }: IteneraryResultProps) => {
     useEffect(() => {
         if (tripRef.current) {
             tripRef.current.innerText = result;
-
-            if (wrapperRef.current) wrapperRef.current.scrollIntoView({ behavior: "smooth" });
+            tripRef.current.scrollIntoView({ behavior: "smooth" });
         }
     }, [result]);
 
