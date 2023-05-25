@@ -12,9 +12,23 @@
   }
 }
 
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
 body {
   color: rgb(var(--color-primary));
   background: rgb(var(--color-secondary));
+}
+
+.hamburger-active span:first-child {
+  transform: translateY(0.1875rem) rotate(45deg);
+}
+
+.hamburger-active span:last-child {
+  transform: translateY(-0.1875rem) rotate(-45deg);
 }
 
 .color-effect {

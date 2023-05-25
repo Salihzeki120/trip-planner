@@ -3,7 +3,7 @@ import { ACTIVITIES_DATA, Activity } from "@/data";
 import { useEffect, useRef, useState } from "react";
 import ActivityList from "./activities/ActivityList";
 import { ItineraryRequirements, generateItinerary } from "@/lib/generateItinerary";
-import InputField from "./InputField";
+import InputField from "../Forms/InputField";
 import IteneraryResult from "./IteneraryItem";
 
 export type SelectableActivity = Activity & { isSelected: boolean };
@@ -98,7 +98,7 @@ const TripPlaner = () => {
     const showRestOfForm = false; // itineraryRequirements.destinations && itineraryRequirements.duration && activities.some(a => a.isSelected);
 
     return (
-        <div className="flex flex-col w-full md:max-w-2xl">
+        <div className="flex flex-col w-full">
             <form className="flex flex-col" onSubmit={handleSubmit}>
                 <fieldset className="flex flex-col">
                     <div className="mb-8">
