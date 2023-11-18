@@ -1,82 +1,82 @@
 export type Activity = {
-    name: string;
-    icon: string;
-}
+  name: string;
+  icon: string;
+};
 
 export const ACTIVITIES_DATA: Activity[] = [
-    {
-        name: 'Beaches',
-        icon: '🏝️'
-    },
-    {
-        name: 'Nightlife',
-        icon: '🍻'
-    },
-    {
-        name: 'Museums',
-        icon: '🏛️'
-    },
-    {
-        name: 'Hiking',
-        icon: '⛰️'
-    },
-    {
-        name: 'Skiing',
-        icon: '⛷️'
-    },
-    {
-        name: 'Scooter rides',
-        icon: '🛵'
-    },
-    {
-        name: 'Kayaking',
-        icon: '🚣'
-    },
-    {
-        name: 'Rafting',
-        icon: '🛶'
-    },
-    {
-        name: 'Scuba diving',
-        icon: '🤿'
-    },
-    {
-        name: 'Shopping',
-        icon: '🛍️'
-    },
-    {
-        name: 'Sightseeing',
-        icon: '🏙️'
-    },
-    {
-        name: 'Camping',
-        icon: '🏕️'
-    },
-    {
-        name: 'Fishing',
-        icon: '🎣'
-    },
-    {
-        name: 'Golfing',
-        icon: '⛳'
-    },
-    {
-        name: 'Rock climbing',
-        icon: '🧗'
-    },
-    {
-        name: 'Skydiving',
-        icon: '🪂'
-    },
-    {
-        name: 'Surfing',
-        icon: '🏄'
-    },
-    {
-        name: 'Wine tasting',
-        icon: '🍷'
-    },
-]
+  {
+    name: "Beaches",
+    icon: "🏝️",
+  },
+  {
+    name: "Nightlife",
+    icon: "🍻",
+  },
+  {
+    name: "Museums",
+    icon: "🏛️",
+  },
+  {
+    name: "Hiking",
+    icon: "⛰️",
+  },
+  {
+    name: "Skiing",
+    icon: "⛷️",
+  },
+  {
+    name: "Scooter rides",
+    icon: "🛵",
+  },
+  {
+    name: "Kayaking",
+    icon: "🚣",
+  },
+  {
+    name: "Rafting",
+    icon: "🛶",
+  },
+  {
+    name: "Scuba diving",
+    icon: "🤿",
+  },
+  {
+    name: "Shopping",
+    icon: "🛍️",
+  },
+  {
+    name: "Sightseeing",
+    icon: "🏙️",
+  },
+  {
+    name: "Camping",
+    icon: "🏕️",
+  },
+  {
+    name: "Fishing",
+    icon: "🎣",
+  },
+  {
+    name: "Golfing",
+    icon: "⛳",
+  },
+  {
+    name: "Rock climbing",
+    icon: "🧗",
+  },
+  {
+    name: "Skydiving",
+    icon: "🪂",
+  },
+  {
+    name: "Surfing",
+    icon: "🏄",
+  },
+  {
+    name: "Wine tasting",
+    icon: "🍷",
+  },
+];
 
 export const MOCK_ITINERARY = `
 As a travel expert for the Philippines, I would recommend the following itinerary for your 2-3 week trip:
@@ -109,4 +109,4 @@ Day 21: Departure
 Depart from Bohol, taking with you unforgettable memories of the beautiful Philippines.
 
 Overall, this itinerary covers all the must-visit destinations of the Philippines, as well as activities that match your requirements. I hope you have an enjoyable trip!
-`
+`;
