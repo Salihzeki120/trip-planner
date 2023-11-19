@@ -148,7 +148,7 @@ const AboutModal = ({ isOpen, toggleModal }: ModalProps) => (
     <p className="text-lg">
       TripPlanner is a simple web app that quickly generates you a rough
       itinerary for your next trip, all based on your proferences. Built with
-      Next.js and powered by OpenAI with it&apos; GPT-3 API.
+      Next.js and powered by OpenAI with it&apos;s GPT-3.5 Turbo API.
     </p>
   </ReactModal>
 );
