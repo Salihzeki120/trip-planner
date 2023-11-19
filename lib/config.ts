@@ -16,7 +16,7 @@ export const seoConfig: Metadata = {
     url: "https://trip-planner.rydkvist.com/",
     images: [
       {
-        url: "https://trip-planner.rydkvist.com/assets/cover.jpg",
+        url: "/assets/cover.jpg",
         width: 900,
         height: 400,
         alt: "TripPlanner: Instant Itineraries, Effortless Travel",
