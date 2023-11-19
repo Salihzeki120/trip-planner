@@ -1,4 +1,4 @@
-import TripPlaner from "@/components/ItineraryForm/TripPlaner";
+import TripPlaner from "@/components/itinerary-form/trip-planner";
 import Hero from "@/components/hero";
 import PageWrapper from "@/components/page-wrapper";
 

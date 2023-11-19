@@ -3,7 +3,7 @@ export type Activity = {
   icon: string;
 };
 
-export const ACTIVITIES_DATA: Activity[] = [
+export const Activities: Activity[] = [
   {
     name: "Beaches",
     icon: "🏝️",
@@ -75,6 +75,66 @@ export const ACTIVITIES_DATA: Activity[] = [
   {
     name: "Wine tasting",
     icon: "🍷",
+  },
+  {
+    name: "Spa",
+    icon: "💆‍♀️",
+  },
+  {
+    name: "Yoga",
+    icon: "🧘",
+  },
+  {
+    name: "Art",
+    icon: "🎨",
+  },
+  {
+    name: "Birding",
+    icon: "🦜",
+  },
+  {
+    name: "Festivals",
+    icon: "🎉",
+  },
+  {
+    name: "Theater",
+    icon: "🎭",
+  },
+  {
+    name: "History",
+    icon: "🏰",
+  },
+  {
+    name: "Biking",
+    icon: "🚴",
+  },
+  {
+    name: "Photography",
+    icon: "📷",
+  },
+  {
+    name: "Farming",
+    icon: "👩‍🌾",
+  },
+  {
+    name: "Stargazing",
+    icon: "🔭",
+  },
+  {
+    name: "Ballooning",
+    icon: "🎈",
+  },
+  {
+    name: "Safari",
+    icon: "🦁",
+  },
+  {
+    name: "Cooking",
+    icon: "👩‍🍳",
+  },
+  {
+    name: "City Tour",
+    icon: "🚶‍♂️",
   },
 ];
 

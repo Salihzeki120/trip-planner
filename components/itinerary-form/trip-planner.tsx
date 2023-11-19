@@ -1,17 +1,17 @@
 "use client";
-import { ACTIVITIES_DATA, Activity } from "@/lib/data";
-import { useEffect, useRef, useState } from "react";
-import ActivityList from "./activities/ActivityList";
+import { Activities, Activity } from "@/lib/data";
+import { useState } from "react";
+import ActivityList from "./activities/activity-list";
 import {
   ItineraryRequirements,
   generateItinerary,
 } from "@/lib/open-ai/generateItinerary";
 import InputField from "../input-field";
-import IteneraryResult from "./IteneraryItem";
+import IteneraryResult from "./itenerary-result";
 
 export type SelectableActivity = Activity & { isSelected: boolean };
 
-const selectableActivities: SelectableActivity[] = ACTIVITIES_DATA.map(
+const selectableActivities: SelectableActivity[] = Activities.map(
   (activity) => ({
     ...activity,
     isSelected: false,
@@ -80,11 +80,13 @@ const TripPlaner = () => {
   };
 
   const handleGenerationComplete = (result: string) => {
+    setIsGeneratingItenerary(false);
     setIteneraryResult((prev) => prev + result);
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIteneraryResult("");
     setIsGeneratingItenerary(true);
 
     const itineraryData: ItineraryRequirements = {
@@ -105,6 +107,7 @@ const TripPlaner = () => {
     itineraryRequirements.destinations &&
     itineraryRequirements.duration &&
     activities.some((a) => a.isSelected);
+
   const showRestOfForm = false; // itineraryRequirements.destinations && itineraryRequirements.duration && activities.some(a => a.isSelected);
 
   return (
@@ -117,7 +120,7 @@ const TripPlaner = () => {
               list="destinations-list"
               label="Enter a destination"
               type="text"
-              placeholder="i.e. Thailand, Vietnam, Laos"
+              placeholder="i.e. Thailand, Vietnam, South Africa"
               value={itineraryRequirements.destinations}
               onChange={handleDestinationChange}
             />
@@ -134,16 +137,16 @@ const TripPlaner = () => {
               <InputField
                 id="duration"
                 list="duration-list"
-                label="How long are you staying?"
+                label="How long are you staying for?"
                 type="text"
-                placeholder="i.e. 3 weeks"
+                placeholder="i.e. 1-2 weeks"
                 value={itineraryRequirements.duration}
                 onChange={handleDurationChange}
               />
               <datalist id="duration-list">
+                <option value="3 days" />
                 <option value="1-2 weeks" />
                 <option value="2 months" />
-                <option value="Ideal time needed" />
               </datalist>
             </div>
           )}
@@ -152,7 +155,7 @@ const TripPlaner = () => {
             itineraryRequirements.duration && (
               <div className="mb-8">
                 <p className="block text-lg font-bold mb-4">
-                  What flavors are you looking for?
+                  What are you looking for?
                 </p>
                 <ActivityList
                   activities={activities}
@@ -160,6 +163,26 @@ const TripPlaner = () => {
                 />
               </div>
             )}
+
+          {showMoreDetails && (
+            <div className="mb-8">
+              <InputField
+                id="travellers"
+                list="travellers-list"
+                label="How many are you?"
+                type="select"
+                placeholder="2"
+                value={itineraryRequirements.travellers}
+                onChange={handleTravellersChange}
+              />
+              <datalist id="travellers-list">
+                <option value="1" />
+                <option value="2" />
+                <option value="3" />
+                <option value="4 or more" />
+              </datalist>
+            </div>
+          )}
 
           {showMoreDetails && (
             <div>
@@ -175,39 +198,28 @@ const TripPlaner = () => {
                   onChange={handleBudgetChange}
                 />
               </div>
-
-              <div className="mb-8">
-                <InputField
-                  id="duration"
-                  list="duration-list"
-                  label="Who is travelling?"
-                  type="text"
-                  placeholder="Me and my friend"
-                  value={itineraryRequirements.travellers}
-                  onChange={handleTravellersChange}
-                />
-              </div>
             </div>
           )}
 
           {showCreateButton && (
             <button
               type="submit"
-              className="bg-primary-button rounded-lg shadow-md text-secondary font-semibold transition-all px-8 self-center py-2 m-2 scale-105 hover:opacity-75"
+              className="sticky bottom-4 w-full md:w-auto bg-primary-button rounded-lg shadow-md text-secondary font-semibold transition-all px-24 self-center py-3 my-2 scale-105 hover:opacity-75"
             >
               Create my Trip
             </button>
           )}
 
-          {/* {isGeneratingItenerary && (
-                        <div className="flex flex-col items-center justify-center my-8">
-                            <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-primary" />
-                            <p className="block text-lg font-bold mt-4">This may take 10 to 15 seconds...</p>
-                        </div>
-                    )} */}
+          {isGeneratingItenerary && (
+            <div className="flex flex-col items-center justify-center my-8">
+              <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-primary" />
+            </div>
+          )}
 
           <div className="mt-8">
-            {iteneraryResult && <IteneraryResult result={iteneraryResult} />}
+            {iteneraryResult && (
+              <IteneraryResult key={iteneraryResult} result={iteneraryResult} />
+            )}
           </div>
         </fieldset>
       </form>

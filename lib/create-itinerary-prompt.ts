@@ -17,8 +17,8 @@ export const createItineraryPrompt = (requirements: ItineraryRequirements) => {
   const inDepth = requirements.inDepth;
 
   return `Act as a travel expert for ${destinations} and provide a travel itinerary that fits to these requisites.
-        - Duration: ${duration}
-        - Activities: ${activities}
+        - Trip duration: ${duration}
+        - Activities to do: ${activities}
         ${budget ? `- Budget: ${requirements.budget}` : null}
         ${
           months

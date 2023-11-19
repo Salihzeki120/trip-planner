@@ -2,8 +2,9 @@
 import ReactModal from "react-modal";
 import Link from "next/link";
 import { useLayoutEffect, useState } from "react";
-import { version } from "../package.json";
+import PackageJSON from "../package.json";
 
+const { version } = PackageJSON;
 const largeScreenBreakpoint = 1024;
 
 const Navigation = () => {

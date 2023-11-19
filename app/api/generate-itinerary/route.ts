@@ -1,7 +1,7 @@
 import { MOCK_ITINERARY } from "@/lib/data";
 import { ItineraryRequirements } from "@/lib/open-ai/generateItinerary";
-import { OpenAIStream } from "@/lib/open-ai/OpenAIStream";
-import { createItineraryPrompt } from "@/lib/createItineraryPrompt";
+import { OpenAIStream } from "@/lib/open-ai/open-ai-stream";
+import { createItineraryPrompt } from "@/lib/create-itinerary-prompt";
 import { NextResponse } from "next/server";
 
 type GenerateItineraryRequest = Request & {
