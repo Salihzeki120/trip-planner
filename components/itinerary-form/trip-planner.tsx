@@ -118,9 +118,9 @@ const TripPlaner = () => {
             <InputField
               id="destinations"
               list="destinations-list"
-              label="Enter a destination"
+              label="Enter your destination"
               type="text"
-              placeholder="i.e. Thailand, Vietnam, South Africa"
+              placeholder="Thailand, Vietnam, South Africa"
               value={itineraryRequirements.destinations}
               onChange={handleDestinationChange}
             />
@@ -139,7 +139,7 @@ const TripPlaner = () => {
                 list="duration-list"
                 label="How long are you staying for?"
                 type="text"
-                placeholder="i.e. 1-2 weeks"
+                placeholder="1-2 weeks"
                 value={itineraryRequirements.duration}
                 onChange={handleDurationChange}
               />

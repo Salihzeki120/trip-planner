@@ -13,7 +13,7 @@ const Page = () => {
             like a pro.
           </>
         }
-        description="Let our AI-powered travel assistant help you create an itenerary for your next trip and bring an immersive experience to your travel."
+        description="Let our AI-powered travel assistant help you create an itenerary for your next trip and bring an immersive experience to your next journey."
       />
       <div className="h-12" />
       <TripPlaner />
