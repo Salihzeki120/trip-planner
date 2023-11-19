@@ -133,7 +133,7 @@ type ModalProps = {
 };
 
 const modalClass =
-  "flex flex-col items-center justify-center bg-white rounded-md shadow-lg p-8 mx-5 lg:mx-auto mt-8 lg:mt-32 lg:w-1/2";
+  "flex flex-col items-center justify-center bg-white rounded-md shadow-lg p-8 mx-5 lg:mx-auto mt-24 lg:mt-8 lg:mt-32 lg:w-1/2";
 const overlayClass =
   "fixed right-0 left-0 top-0 bottom-0 z-10 bg-black bg-opacity-50";
 
