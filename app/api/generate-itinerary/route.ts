@@ -8,7 +8,7 @@ type GenerateItineraryRequest = Request & {
   body: Partial<ItineraryRequirements>;
 };
 
-if (!process.env.OPENAI_API_KEY) {
+if (!process.env.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) {
   throw new Error("Missing OpenAPI Key");
 }
 
